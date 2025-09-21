@@ -1,0 +1,23 @@
+Associations in sequelize :- 
+associations define relationships between different models (tables). The associations method or concept is how you declare these relationships so Sequelize knows how the models connect.
+These are the associations this model has, and here are their types.Tells TypeScript what relationships exist.
+Used only for type checking and IntelliSense
+
+public static associations: {
+    expenses: Association<User, Expense>;
+    groups: Association<User, Group>;
+  };
+
+associate (method):
+Defines the relationships between models
+Called when you set up your models
+Used by you to link models in code (e.g. hasMany, belongsTo)
+
+public static associate(models: {
+    Expense: typeof Expense;
+    Group: typeof Group;
+  }) {
+    User.hasMany(models.Expense, { foreignKey: 'paidBy', as: 'expenses' });
+    User.belongsToMany(models.Group, { through: models.GroupMember, as: 'groups' });
+}
+
